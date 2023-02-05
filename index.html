@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      const menuList = {
+        burger: [
+          {
+            name: "🍔",
+            time: 3000,
+          },
+          {
+            name: "🍟",
+            time: 1000,
+          },
+          {
+            name: "🥤",
+            time: 500,
+          },
+        ],
+        chicken: [
+          {
+            name: "🍗",
+            time: 5000,
+          },
+          {
+            name: "🥔",
+            time: 2000,
+          },
+          {
+            name: "🍺",
+            time: 1500,
+          },
+        ],
+        avocado: [
+          {
+            name: "🥑",
+            time: 3000,
+          },
+          {
+            name: "🍚",
+            time: 5000,
+          },
+          {
+            name: "🧉",
+            time: 2000,
+          },
+        ],
+      };
+
+      const condition = Math.ceil(Math.random() * 10) < 8;
+
+      function lookForResult(arr) {
+        console.log(arr);
+      }
+
+      function createOrder(menuItem, func) {
+        console.log("Start cooking order...");
+
+        const result = [];
+
+        menuItem.forEach(({ name, time }, index) => {
+          setTimeout(() => {
+            const fulfilledResult = {
+              status: "fulfilled",
+              value: name,
+            };
+            const rejectedResult = {
+              status: "rejected",
+              value: name,
+            };
+
+            if (condition) {
+              result[index] = fulfilledResult;
+            } else {
+              result[index] = rejectedResult;
+            }
+            let count = menuItem.length;
+            if (result.filter((x) => x).length === count) {
+              func(result);
+            }
+          }, time);
+        });
+      }
+
+      const res = createOrder(menuList.chicken, lookForResult);
+    </script>
+  </body>
+</html>
